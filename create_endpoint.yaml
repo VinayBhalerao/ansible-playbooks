@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  connection: local
+
+  vars:
+    access_token: "your_access_token"
+    http_method: "GET"
+    pattern: "/endpoint"
+    delta: "1"
+    metric_id: "your_metric_id"
+    service_id: "your_service_id"
+
+  tasks:
+    - name: Create rest endpoint for a service
+      uri:
+        url: https://blabla-admin.3scale.net/admin/api/services/{{service_id}}/proxy/mapping_rules.xml
+        method: POST
+        headers:
+          Accept: '*/*'
+          Content-Type: application/x-www-form-urlencoded
+        body: "access_token={{ access_token }}&http_method={{ http_method }}&pattern={{ pattern }}&delta={{ delta}}&metric_id={{ metric_id}}"
+        status_code: 201    
+
